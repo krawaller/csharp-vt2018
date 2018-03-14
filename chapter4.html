@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>The world</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="icon" type="image/x-icon" href="mc2/images/favicon.ico">
+
+    <link rel="stylesheet" href="mc2/styles/reveal.css">
+    <link rel="stylesheet" href="mc2/styles/theme.css" id="theme">
+    <link rel="stylesheet" href="mc2/styles/code.css">
+    <!--STARTCOURSESPECIFICSTYLES--><link rel="stylesheet" href="styles/stuff.css"><!--ENDCOURSESPECIFICSTYLES-->
+  </head>
+
+  <body>
+    <div id="pos"></div>
+    <div class="reveal">
+      <div class="slides">
+        <section class="slide chaptertitle">
+          <div class="slidecontent">
+            <div class="chapternumber"> chapter 4 of 6 </div>
+            <h1>The world</h1>
+            <span>because we&#39;re a herd species</p>
+</span>
+          </div>
+        </section>
+        
+        <!--STARTSECTIONINDEX--><section class="slide sectionlist">
+  <div class="slidecontent">
+    <h3>Sections in this chapter</h3>
+    <ol>
+    <li><a href="#/2">Code&nbsp;quality</a></li>
+<li><a href="#/3">Exercise&nbsp;&#8209;&nbsp;hooking&nbsp;up&nbsp;linters</a></li>
+<li><a href="#/4">Continuous&nbsp;Integration</a></li>
+<li><a href="#/5">Exercise&nbsp;&#8209;&nbsp;CircleCI</a></li>
+<li><a href="#/6">Pull&nbsp;requests</a></li>
+<li><a href="#/7">Exercise&nbsp;&#8209;&nbsp;Run&nbsp;CircleCI&nbsp;on&nbsp;PR:s</a></li>
+<li><a href="#/8">Netlify</a></li>
+<li><a href="#/9">Exercise&nbsp;&#8209;&nbsp;Netlify</a></li>
+    </ol>
+  </div>
+</section>
+<!--ENDSECTIONINDEX-->
+        <!--STARTCHAPTERCONTENT--><!--STARTSECTION1--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 1/8</div>
+      <h3>Code quality</h3>
+      <p>Getting rid of the lint</p>
+</p>
+    </div>
+  </section>
+  <section class="slide" data-pos="4-1-1">
+<span class="pos">4-1-1</span>
+<div class="slidecontent"><div class="learn"></div>
+
+<p>Learn about different aspects of <strong>code quality</strong> and <strong>tools</strong> to enforce it.</p>
+</div></section><section class="slide" data-pos="4-1-2">
+<span class="pos">4-1-2</span>
+<div class="slidecontent"><p>So - <strong>code quality</strong>. What do we actually mean?</p>
+</div></section><section class="slide" data-pos="4-1-3">
+<span class="pos">4-1-3</span>
+<div class="slidecontent"><p>There&#39;s a <strong>top-level distinction</strong> we have to make first: we can talk about the quality of the code...</p>
+<ul>
+<li>..as it is <strong>written</strong></li>
+<li>..as it is <strong>run</strong></li>
+</ul>
+<p>In this part we&#39;re solely concerned about the first point.</p>
+</div></section><section class="slide list" data-pos="4-1-4">
+<span class="pos">4-1-4</span>
+<div class="slidecontent">
+<p>Talking about the quality of the code as it is written, there are (at least) <strong>3 different aspects</strong>:</p>
+<ul>
+<li><span>a</span>syntax errors</li>
+<li><span>b</span>aesthetics</li>
+<li><span>c</span>politics</li>
+</ul>
+</div></section><section class="slide num numA" data-pos="4-1-5">
+<span class="pos">4-1-5</span>
+<div class="slidecontent">
+<p>First off code needs to be <strong>correct</strong>. Our editor should prevent us from writing code with <strong>syntax errors</strong>.</p>
+<p>Even in a loosely typed language, catching syntax errors early is very possible.</p>
+</div></section><section class="slide" data-pos="4-1-6">
+<span class="pos">4-1-6</span>
+<div class="slidecontent"><p>Loosely typed means having to accept a higher ratio of <strong>runtime errors</strong> and <strong>bugs</strong>, but that&#39;s another discussion.</p>
+</div></section><section class="slide num numB" data-pos="4-1-7">
+<span class="pos">4-1-7</span>
+<div class="slidecontent">
+<p>But code quality can be discussed outside of the realm of errors. </p>
+<p>For instance, as a team we can make decisions on certain <strong>aesthetics</strong>.</p>
+</div></section><section class="slide" data-pos="4-1-8">
+<span class="pos">4-1-8</span>
+<div class="slidecontent"><p>A common example is how to indent our files - <strong>tabs</strong> or <strong>spaces</strong>!</p>
+<p>The important thing is not what we choose, but that we use our choice <strong>consistently</strong> throughout our codebase.</p>
+<p>Having a consistent style is an important part of having <strong>quality code</strong>.</p>
+</div></section><section class="slide num numC" data-pos="4-1-9">
+<span class="pos">4-1-9</span>
+<div class="slidecontent">
+<p>Then there are things that we can be consistent about that aren&#39;t really aesthetics. For example:</p>
+<ul>
+<li>how large should a function be before we split it</li>
+<li>how many different parameters is ok to have</li>
+<li>how many branches are ok within a function</li>
+</ul>
+<p>This is what we mean by <strong>politics</strong>.</p>
+</div></section><section class="slide" data-pos="4-1-10">
+<span class="pos">4-1-10</span>
+<div class="slidecontent"><p>Just as with aesthetics, a codebase is easier to read and predict if we <strong>follow the same politics</strong> throughout.</p>
+<p>Again - <strong>consistency</strong>.</p>
+</div></section><section class="slide" data-pos="4-1-11">
+<span class="pos">4-1-11</span>
+<div class="slidecontent"><p>The category of tools that help to <strong>enforce syntax, aesthetics and choices</strong> are called <strong>linters</strong>.</p>
+<p>The name comes from the lint in your belly-button - a linter is a tool that picks this out!</p>
+</div></section><section class="slide" data-pos="4-1-12">
+<span class="pos">4-1-12</span>
+<div class="slidecontent"><p>The different choices we can make (tabs or spaces, etc) are called <strong>rules</strong>.</p>
+<p>We can <strong>configure a linter</strong> and tell it what our opinion is on the various rules.</p>
+</div></section><section class="slide" data-pos="4-1-13">
+<span class="pos">4-1-13</span>
+<div class="slidecontent"><p>Because the whole point of linters is to <strong>ensure consistency</strong>, that means that all team members need to <strong>use it in the same way</strong>.</p>
+<p>We achieve this by making sure that the <strong>linter configuration is part of our source code</strong>. That way everyone who clones the repo will get the <strong>same choices made</strong>.</p>
+</div></section><section class="slide" data-pos="4-1-14">
+<span class="pos">4-1-14</span>
+<div class="slidecontent"><p>We can <strong>run the linters</strong> (in other words, test if our source code obeys the rules) in a variety of ways:</p>
+<ul>
+<li>show <strong>feedback in our editor as we code</strong></li>
+<li>have a <strong>linter command that tests the entire source</strong></li>
+<li>run it on a <strong>central repo</strong> when ppl try to check in code.</li>
+</ul>
+<p>We&#39;ll explore the last point later, and the first two now!</p>
+</div></section>
+</section>
+<!--ENDSECTION1-->
+<!--STARTSECTION2--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 2/8</div>
+      <h3>Exercise - hooking up linters</h3>
+      
+    </div>
+  </section>
+  <section class="slide" data-pos="4-2-1">
+<span class="pos">4-2-1</span>
+<div class="slidecontent"><div class="goal"></div>
+
+<p>Goal: Have commands to lint our code</p>
+</div></section><section class="slide list" data-pos="4-2-2">
+<span class="pos">4-2-2</span>
+<div class="slidecontent">
+<p>Since we are using <strong>two separate languages</strong> in our project, we need two different linting solutions!</p>
+<ul>
+<li><span>a</span>Lint our LESS code</li>
+<li><span>b</span>Lint our JavaScript</li>
+</ul>
+</div></section><section class="slide num numA" data-pos="4-2-3">
+<span class="pos">4-2-3</span>
+<div class="slidecontent">
+<p>One of the most popular tools for linting CSS is <a href="https://stylelint.io/">Stylelint</a>.</p>
+<p><img src="resources/images/stylelint.svg" alt=""></p>
+<p>Stylelint also understands both SASS and LESS.</p>
+</div></section><section class="slide" data-pos="4-2-4">
+<span class="pos">4-2-4</span>
+<div class="slidecontent"><p>We <strong>install it from npm</strong> as per usual:</p>
+<pre><code>npm install --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span> stylelint
+</code></pre></div></section><section class="slide" data-pos="4-2-5">
+<span class="pos">4-2-5</span>
+<div class="slidecontent"><p>We <strong>configure Stylelint</strong> by adding a <strong><code>.stylelintrc</code></strong> file:</p>
+<p><img src="resources/images/stylelintfile.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-2-6">
+<span class="pos">4-2-6</span>
+<div class="slidecontent"><p>Here&#39;s what the content looks like:</p>
+<pre><code>{
+  <span class="hljs-attr">"rules"</span>: {
+    <span class="hljs-attr">"max-empty-lines"</span>: <span class="hljs-number">4</span>
+  }
+}
+</code></pre><p>The <code>max-empty-lines</code> rule is just an example. You can find a <a href="https://stylelint.io/user-guide/rules/">full list of rules</a> on the Stylelint homepage. Glance through it and <strong>add the rules you like</strong>!</p>
+</div></section><section class="slide" data-pos="4-2-7">
+<span class="pos">4-2-7</span>
+<div class="slidecontent"><p>Having done that we need to <strong>add a script to run the linter</strong>. Put the following into the <code>scripts</code> section of <code>package.json</code>:</p>
+<pre><code>  <span class="hljs-string">"lintless"</span>: <span class="hljs-string">"stylelint styles.less"</span>,
+</code></pre><p>Make sure your command matches what you&#39;ve chosen to call your style file.</p>
+</div></section><section class="slide" data-pos="4-2-8">
+<span class="pos">4-2-8</span>
+<div class="slidecontent"><p>To test, <strong>make a change in the LESS file that violates a rule</strong> and run...</p>
+<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> lintless</span>
+</code></pre><p>...and you&#39;ll see something like:</p>
+<p><img src="resources/images/stylelintoutput.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-2-9">
+<span class="pos">4-2-9</span>
+<div class="slidecontent"><p>It would also be valuable to <strong>get this feedback directly in the editor</strong>. In VSC, go to the extensions tab and <strong>find the Stylelint extension</strong>:</p>
+<p><img src="resources/images/stylelintextension.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-2-10">
+<span class="pos">4-2-10</span>
+<div class="slidecontent"><p>Now VSC will <strong>show the errors as you code</strong>:</p>
+<p><img src="resources/images/stylelintineditor.png" alt=""></p>
+</div></section><section class="slide num numB" data-pos="4-2-11">
+<span class="pos">4-2-11</span>
+<div class="slidecontent">
+<p>Ok! Time to make a very similar journey for our <strong>JavaScript</strong>. Our linting tool here will be <a href="https://eslint.org/">ESLint</a>.</p>
+<p><img src="resources/images/eslint.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-2-12">
+<span class="pos">4-2-12</span>
+<div class="slidecontent"><p>We <strong>install it from npm</strong> as per usual, yet again:</p>
+<pre><code>npm install --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span> eslint
+</code></pre></div></section><section class="slide" data-pos="4-2-13">
+<span class="pos">4-2-13</span>
+<div class="slidecontent"><p>We&#39;ll need <strong>two new files</strong>:</p>
+<p><img src="resources/images/eslintfiles.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-2-14">
+<span class="pos">4-2-14</span>
+<div class="slidecontent"><p>The <strong>configuration</strong> in <strong><code>.eslintrc</code></strong> looks like this:</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"parserOptions"</span>: { <span class="hljs-attr">"ecmaVersion"</span>: <span class="hljs-number">6</span> },
+  <span class="hljs-attr">"rules"</span>: {
+      <span class="hljs-attr">"quotes"</span>: [<span class="hljs-string">"error"</span>, <span class="hljs-string">"double"</span>]
+  }
+}
+</code></pre>
+<p>Again the <code>quotes</code> rule is just an example of what you can do.</p>
+<p>See the <a href="https://eslint.org/docs/rules/">full list of ESLint rules</a> and pick what you like!</p>
+</div></section><section class="slide" data-pos="4-2-15">
+<span class="pos">4-2-15</span>
+<div class="slidecontent"><p>The other file, <strong><code>.eslintignore</code></strong>, is for - surprise - listing <strong>paths that should not be linted</strong>. We have a few of those:</p>
+<pre><code>webpack<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.js</span>
+distribution
+</code></pre><p>Go ahead and add the above to your file!</p>
+</div></section><section class="slide" data-pos="4-2-16">
+<span class="pos">4-2-16</span>
+<div class="slidecontent"><p>Next up we need a <strong>script to run ESLint</strong>. Add the following to the script sections of <code>package.json</code>:</p>
+<pre><code>  <span class="hljs-string">"lintjs"</span>: <span class="hljs-string">"eslint ."</span>
+</code></pre><p>This simply tells ESLint to lint everything in the current folder.</p>
+</div></section><section class="slide question" data-pos="4-2-17">
+<span class="pos">4-2-17</span>
+<div class="slidecontent">
+<p>Instead of linting the whole folder and ignoring some stuff, couldn&#39;t we have <strong>moved our source files into a separate directory</strong>, then tell ESLint to lint <strong>only that directory</strong>?</p>
+</div></section><section class="slide answer" data-pos="4-2-18">
+<span class="pos">4-2-18</span>
+<div class="slidecontent">
+<p>Yes. And that would probably be much better, especially when the number of source files grow.</p>
+<p>But then I wouldn&#39;t get to show you <code>.eslintignore</code>! :D</p>
+</div></section><section class="slide" data-pos="4-2-19">
+<span class="pos">4-2-19</span>
+<div class="slidecontent"><p>Time to make VSC aware of what we just did! We need the <strong>ESLint extension</strong>:</p>
+<p><img src="resources/images/eslintextension.png" alt=""></p>
+<p>As you can see this extension is <strong>ridiculously popular</strong>.</p>
+</div></section><section class="slide" data-pos="4-2-20">
+<span class="pos">4-2-20</span>
+<div class="slidecontent"><p>Having done that, we now get <strong>JS rules violation feedback in the editor</strong>:</p>
+<p><img src="resources/images/eslintineditor.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-2-21">
+<span class="pos">4-2-21</span>
+<div class="slidecontent"><div class="checklist"></div>
+
+<p>You are done when...</p>
+<ul>
+<li>there&#39;s a <code>lintjs</code> command</li>
+<li>non-source js files are not linted</li>
+<li>there&#39;s a <code>lintless</code> command</li>
+<li>there&#39;s a <code>lint</code> cmnd that runs both</li>
+<li>errors from both linters are shown in VSC</li>
+</ul>
+</div></section><section class="slide" data-pos="4-2-22">
+<span class="pos">4-2-22</span>
+<div class="slidecontent"><div class="solution"></div>
+
+<p>If you get stuck, see the <a href="https://github.com/krawaller/js-app-solutions/tree/master/lint">Lint</a> solution.</p>
+</div></section>
+</section>
+<!--ENDSECTION2-->
+<!--STARTSECTION3--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 3/8</div>
+      <h3>Continuous Integration</h3>
+      
+    </div>
+  </section>
+  <section class="slide" data-pos="4-3-1">
+<span class="pos">4-3-1</span>
+<div class="slidecontent"><div class="learn"></div>
+
+<p>Understand what <strong>continuous integration</strong> is and why we do it</p>
+</div></section><section class="slide" data-pos="4-3-2">
+<span class="pos">4-3-2</span>
+<div class="slidecontent"><p>In modern JS development, <strong>continuous integration</strong> is a very important term.</p>
+<p>The idea behind it is to make it <strong>cheaper to merge new code</strong>.</p>
+</div></section><section class="slide" data-pos="4-3-3">
+<span class="pos">4-3-3</span>
+<div class="slidecontent"><p>We accomplish this by <strong>automating all checks possible</strong>. This frequently includes:</p>
+<ul>
+<li>Making sure the <strong>build works</strong></li>
+<li>Applying the <strong>linter rules</strong></li>
+<li>Running the <strong>unit tests</strong></li>
+</ul>
+</div></section><section class="slide question" data-pos="4-3-4">
+<span class="pos">4-3-4</span>
+<div class="slidecontent">
+<p>Wait... shouldn&#39;t the <strong>developers always do this</strong>?</p>
+</div></section><section class="slide answer" data-pos="4-3-5">
+<span class="pos">4-3-5</span>
+<div class="slidecontent">
+<p><strong>Yes</strong>. But...</p>
+<blockquote>
+<p>This is such a small change, surely nothing can break</p>
+</blockquote>
+<p>...etc. In essence, <strong>humans can&#39;t be trusted</strong>.</p>
+</div></section><section class="slide" data-pos="4-3-6">
+<span class="pos">4-3-6</span>
+<div class="slidecontent"><p>Also, research shows that simply <strong>knowing that rigorous testing is applied to all code</strong> will make the team...</p>
+<ul>
+<li>feel more <strong>ownership</strong> for the code</li>
+<li>feel more <strong>trust</strong> for the code</li>
+</ul>
+<p>...which are both very valuable things.</p>
+</div></section><section class="slide" data-pos="4-3-7">
+<span class="pos">4-3-7</span>
+<div class="slidecontent"><p>So, how is this all accomplished? We use a <strong>continuous integration system</strong>.</p>
+<p>These used to be server-based, such as <a href="https://jenkins.io/">https://jenkins.io/</a>. Very powerful, but also rather <strong>fiddly to set up</strong>.</p>
+</div></section><section class="slide" data-pos="4-3-8">
+<span class="pos">4-3-8</span>
+<div class="slidecontent"><p>Now it is more popular to use <strong>CI as a service solutions</strong>.</p>
+<p>Two popular ones are <a href="https://travis-ci.org/">https://travis-ci.org/</a> and <a href="https://circleci.com/">https://circleci.com/</a>.</p>
+<p>Next up we&#39;ll try our hand at the latter!</p>
+</div></section>
+</section>
+<!--ENDSECTION3-->
+<!--STARTSECTION4--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 4/8</div>
+      <h3>Exercise - CircleCI</h3>
+      
+    </div>
+  </section>
+  <section class="slide" data-pos="4-4-1">
+<span class="pos">4-4-1</span>
+<div class="slidecontent"><div class="goal"></div>
+
+<p>Goal: Hooking up CircleCI</p>
+</div></section><section class="slide" data-pos="4-4-2">
+<span class="pos">4-4-2</span>
+<div class="slidecontent"><p>As previously mentioned there are <strong>many tools available</strong> to do continuous integration as a service.</p>
+<p>We&#39;ll be using CircleCI!</p>
+<p><img src="resources/images/circleci.png" alt=""></p>
+</div></section><section class="slide list" data-pos="4-4-3">
+<span class="pos">4-4-3</span>
+<div class="slidecontent">
+<p>Here&#39;s the battleplan:</p>
+<ul>
+<li><span>a</span>Sign up for CircleCI</li>
+<li><span>b</span>Setup a project</li>
+<li><span>c</span>Configure our repo</li>
+<li><span>d</span>Try it out</li>
+</ul>
+</div></section><section class="slide num numA" data-pos="4-4-4">
+<span class="pos">4-4-4</span>
+<div class="slidecontent">
+<p>First we have to <strong>sign up</strong>.</p>
+<ul>
+<li>Go to <a href="https://circleci.com/">https://circleci.com</a> and hit the <strong>sign up</strong> button to the top right**</li>
+<li>Next, choose <strong>Sign up with Github</strong></li>
+<li>On the new screen, <strong>log in with your Github credentials</strong></li>
+<li>Next, <strong>agree to authorize CircleCI</strong></li>
+</ul>
+<p>You should now arrive at your brand new <strong>CircleCI dashboard</strong>!</p>
+</div></section><section class="slide num numB" data-pos="4-4-5">
+<span class="pos">4-4-5</span>
+<div class="slidecontent">
+<p>Time to <strong>connect your repo</strong>!</p>
+<p>Hit the <strong>Add project</strong> button to the far right:</p>
+<p><img src="resources/images/circleci-addprojects.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-4-6">
+<span class="pos">4-4-6</span>
+<div class="slidecontent"><p>You&#39;ll now see a <strong>filterable list of all your repos</strong> on Github.</p>
+<p>Find the correct repo and hit the <strong>Setup project</strong> button next to it.</p>
+<p><img src="resources/images/circleci-setuprepo.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-4-7">
+<span class="pos">4-4-7</span>
+<div class="slidecontent"><p>On the <strong>settings screen</strong> choose <strong>Linux</strong>, version <strong>2.0</strong> and <strong>Node</strong>:</p>
+<p><img src="resources/images/circleci-settings.png" alt=""></p>
+<p>All done here, well done!</p>
+</div></section><section class="slide num numC" data-pos="4-4-8">
+<span class="pos">4-4-8</span>
+<div class="slidecontent">
+<p>Finally we have to <strong>configure CircleCI</strong> by adding <strong>configuration files to our repo</strong>!</p>
+<p>In your project, add a <strong>folder called <code>.circleci</code></strong> with a <strong><code>config.yml</code></strong> inside it!</p>
+<p><img src="resources/images/circleci-folder.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-4-9">
+<span class="pos">4-4-9</span>
+<div class="slidecontent"><p>Inside <strong><code>config.yml</code></strong>, paste the following:</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">version:</span> <span class="hljs-number">2</span>
+<span class="hljs-attr">jobs:</span>
+<span class="hljs-attr">  build:</span>
+<span class="hljs-attr">    working_directory:</span> <span class="hljs-string">~/tmp</span>
+<span class="hljs-attr">    docker:</span>
+<span class="hljs-attr">      - image:</span> <span class="hljs-string">circleci/node:7</span>
+<span class="hljs-attr">    steps:</span>
+<span class="hljs-bullet">      -</span> <span class="hljs-string">checkout</span>
+<span class="hljs-attr">      - run:</span> <span class="hljs-string">npm</span> <span class="hljs-string">install</span>
+<span class="hljs-attr">      - run:</span> <span class="hljs-string">npm</span> <span class="hljs-string">run</span> <span class="hljs-string">build</span>
+<span class="hljs-attr">      - run:</span> <span class="hljs-string">npm</span> <span class="hljs-string">run</span> <span class="hljs-string">lint</span>
+</code></pre>
+<p>This instructs CircleCI how to <strong>build and lint the project</strong>.</p>
+</div></section><section class="slide num numD" data-pos="4-4-10">
+<span class="pos">4-4-10</span>
+<div class="slidecontent">
+<p>Time to <strong>try this out</strong>! Do a regular <strong>add, commit and push</strong> of your new config file.</p>
+</div></section><section class="slide" data-pos="4-4-11">
+<span class="pos">4-4-11</span>
+<div class="slidecontent"><p>Now go back to the <strong>CircleCI dashboard</strong> in the browser and <strong>click <code>Builds</code></strong> in the top left corner. You&#39;ll see something like this...</p>
+<p><img src="resources/images/circleci-running.png" alt=""></p>
+<p>...which will then turn into <strong>this</strong>:</p>
+<p><img src="resources/images/circleci-running.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-4-12">
+<span class="pos">4-4-12</span>
+<div class="slidecontent"><p>...except if there was a <strong>problem</strong>. Then you&#39;d instead see red, and clicking that would <strong>show the output log</strong>. You&#39;d also get an <strong>email</strong> saying things went belly-up.</p>
+<p>Try this by</p>
+<ul>
+<li>making a small lint violation in your LESS file</li>
+<li>adding, committing and pushing the error</li>
+</ul>
+</div></section><section class="slide" data-pos="4-4-13">
+<span class="pos">4-4-13</span>
+<div class="slidecontent"><div class="checklist"></div>
+
+<p>You are done when...</p>
+<ul>
+<li>CircleCI tries to build and lint your app on every push</li>
+<li>You are notified via mail when it fails</li>
+</ul>
+</div></section><section class="slide" data-pos="4-4-14">
+<span class="pos">4-4-14</span>
+<div class="slidecontent"><div class="solution"></div>
+
+<p>If you get stuck, see the <a href="https://github.com/krawaller/js-app-solutions/tree/master/circleci">CircleCI</a> solution.</p>
+</div></section>
+</section>
+<!--ENDSECTION4-->
+<!--STARTSECTION5--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 5/8</div>
+      <h3>Pull requests</h3>
+      <p>Or: why programming is AWESOME</p>
+</p>
+    </div>
+  </section>
+  <section class="slide" data-pos="4-5-1">
+<span class="pos">4-5-1</span>
+<div class="slidecontent"><div class="learn"></div>
+
+<p>Employing <strong>continuous integration</strong> for pull requests</p>
+</div></section><section class="slide" data-pos="4-5-2">
+<span class="pos">4-5-2</span>
+<div class="slidecontent"><p>Getting an <strong>email</strong> whenever someone <strong>pushes faulty code</strong> is useful.</p>
+<p>But, ideally, we&#39;d want to <strong>prevent that from happening at all</strong>. Fortunately this is rather easy to do, since we can <strong>disallow merging of pull requests with errors</strong>!</p>
+</div></section><section class="slide" data-pos="4-5-3">
+<span class="pos">4-5-3</span>
+<div class="slidecontent"><p>Here&#39;s the <strong>normal flow when we work</strong>:</p>
+<ul>
+<li>team member has <strong>repo cloned on local machine</strong></li>
+<li>she creates a <strong>new branch</strong> whenever she starts a new feature</li>
+<li>she <strong>implements the feature in that branch</strong></li>
+<li>when done she&#39;ll <strong>open a pull request</strong> from that branch to master</li>
+<li>others will <strong>look through the code</strong> (&quot;code review&quot;)</li>
+<li>when enough ppl have agreed the branch is <strong>merged</strong></li>
+</ul>
+</div></section><section class="slide" data-pos="4-5-4">
+<span class="pos">4-5-4</span>
+<div class="slidecontent"><p>Hooking up <strong>continuous integration into the Pull Request flow</strong> simply means that we want Github to <strong>prevent merging unless CircleCI says all is ok</strong>!</p>
+</div></section><section class="slide" data-pos="4-5-5">
+<span class="pos">4-5-5</span>
+<div class="slidecontent"><p>This will purely be a <strong>configuration on Github</strong>. Github provides a plethora of integration possibilities, and listening to CircleCI + friends is just one of them.</p>
+</div></section>
+</section>
+<!--ENDSECTION5-->
+<!--STARTSECTION6--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 6/8</div>
+      <h3>Exercise - Run CircleCI on PR:s</h3>
+      
+    </div>
+  </section>
+  <section class="slide" data-pos="4-6-1">
+<span class="pos">4-6-1</span>
+<div class="slidecontent"><div class="goal"></div>
+
+<p>Goal: Prevent breaking PR:s</p>
+</div></section><section class="slide list" data-pos="4-6-2">
+<span class="pos">4-6-2</span>
+<div class="slidecontent">
+<p>Here&#39;s the plan:</p>
+<ul>
+<li><span>a</span>set up your master branch to be protected</li>
+<li><span>b</span>make a PR to someone else</li>
+<li><span>c</span>have someone else make a PR to you</li>
+</ul>
+</div></section><section class="slide num numA" data-pos="4-6-3">
+<span class="pos">4-6-3</span>
+<div class="slidecontent">
+<p>First off, head over to <strong>your repo Github</strong> to start setting it up!</p>
+<p>Go to the <strong>settings tab</strong> to the far right.</p>
+<p><img src="resources/images/github-repo-settings.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-6-4">
+<span class="pos">4-6-4</span>
+<div class="slidecontent"><p>Once there choose <strong>Branches</strong> and <strong>select <code>master</code> as the protected branch</strong>:</p>
+<p><img src="resources/images/github-settings-branches.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-6-5">
+<span class="pos">4-6-5</span>
+<div class="slidecontent"><p><strong>Tick the boxes</strong> like this...</p>
+<p><img src="resources/images/github-protection.png" alt=""></p>
+<p>...and hit <strong><code>Save changes</code></strong> at the bottom.</p>
+</div></section><section class="slide" data-pos="4-6-6">
+<span class="pos">4-6-6</span>
+<div class="slidecontent"><p>That&#39;s it - now <strong>CircleCI will run on every pull request</strong>!</p>
+</div></section><section class="slide num numB" data-pos="4-6-7">
+<span class="pos">4-6-7</span>
+<div class="slidecontent">
+<p>Time to <strong>test the protection of a friend</strong>!</p>
+<p>Go <strong>find a classmate</strong> who has completed the previous step.</p>
+</div></section><section class="slide" data-pos="4-6-8">
+<span class="pos">4-6-8</span>
+<div class="slidecontent"><p>Navigate to <strong>their repo on Github</strong>, click <strong><code>Clone or download</code></strong> and then the <strong>Copy to clipboard</strong> button!</p>
+<p><img src="resources/images/github-clone.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-6-9">
+<span class="pos">4-6-9</span>
+<div class="slidecontent"><p>In your terminal, navigate somewhere were you can put new projects and type:</p>
+<pre><code class="lang-bash">git <span class="hljs-built_in">clone</span> &lt;paste-to-get-url-here&gt;
+</code></pre>
+<p>You paste the address by <strong>right-clicking in the terminal and selecting <code>paste</code></strong>.</p>
+</div></section><section class="slide" data-pos="4-6-10">
+<span class="pos">4-6-10</span>
+<div class="slidecontent"><p>Now <strong>navigate into the new project</strong>. The folder has the same name as the repo you cloned.</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">cd</span> myfriendsreviewsite
+</code></pre>
+<p>Once inside, <strong>create a new branch</strong>.</p>
+<pre><code>git checkout -<span class="hljs-selector-tag">b</span> somenewbranchname
+</code></pre></div></section><section class="slide" data-pos="4-6-11">
+<span class="pos">4-6-11</span>
+<div class="slidecontent"><p><strong>Open the folder in VSC</strong>, and make a <strong>bad change to a file somewhere</strong> so that the linter protests of the build won&#39;t work.</p>
+<p>Then do:</p>
+<pre><code class="lang-bash">git add .
+git commit -m <span class="hljs-string">"awesome change"</span>
+git push -u origin somenewbranchname
+</code></pre>
+</div></section><section class="slide" data-pos="4-6-12">
+<span class="pos">4-6-12</span>
+<div class="slidecontent"><p>Now go <strong>back to their repo on Github</strong>. Github will see your new branch and <strong>show a convenient <code>Compare &amp; pull request button</code></strong>. Hit that!</p>
+<p><img src="resources/images/github-prbutton.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-6-13">
+<span class="pos">4-6-13</span>
+<div class="slidecontent"><p>On the next screen add a <strong>message explaining what you&#39;ve done</strong> and hit <strong><code>Create pull request</code></strong>!</p>
+<p><img src="resources/images/github-makepr.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-6-14">
+<span class="pos">4-6-14</span>
+<div class="slidecontent"><p>Inside the PR you&#39;ll <strong>see the CircleCI tests running</strong>, and eventually <strong>show an error</strong>.</p>
+<p>On your friend&#39;s machine the <strong>merge button will be shown in red</strong>.</p>
+<p>Now <strong>fix the code</strong> and push a new commit. Watch the <strong>PR update</strong> and the <strong>merge button go green</strong>!</p>
+</div></section><section class="slide num numC" data-pos="4-6-15">
+<span class="pos">4-6-15</span>
+<div class="slidecontent">
+<p>Having done all that, <strong>make someone do the same to you</strong> to make sure that your branch is protected too!</p>
+</div></section><section class="slide" data-pos="4-6-16">
+<span class="pos">4-6-16</span>
+<div class="slidecontent"><div class="checklist"></div>
+
+<p>You are done when...</p>
+<ul>
+<li>a breaking PR cannot be merged to your repo</li>
+<li>someone has successfully merged a PR to your project</li>
+<li>you have a PR merged to someone else&#39;s repo</li>
+</ul>
+</div></section>
+</section>
+<!--ENDSECTION6-->
+<!--STARTSECTION7--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 7/8</div>
+      <h3>Netlify</h3>
+      
+    </div>
+  </section>
+  <section class="slide" data-pos="4-7-1">
+<span class="pos">4-7-1</span>
+<div class="slidecontent"><div class="learn"></div>
+
+<p>Learn about <strong>hosting services</strong></p>
+</div></section><section class="slide" data-pos="4-7-2">
+<span class="pos">4-7-2</span>
+<div class="slidecontent"><p>Meet your new best friend!</p>
+<p><img src="resources/images/netlify.jpg" alt=""></p>
+</div></section><section class="slide" data-pos="4-7-3">
+<span class="pos">4-7-3</span>
+<div class="slidecontent"><p><a href="https://www.netlify.com/">Netlify</a> is a <strong>hosting service</strong>. The tagline:</p>
+<blockquote>
+<p>Write frontend code. Push it. We handle the rest.</p>
+</blockquote>
+</div></section><section class="slide" data-pos="4-7-4">
+<span class="pos">4-7-4</span>
+<div class="slidecontent"><p>It&#39;s not just a pure hosting service though - the beautiful thing is that it...</p>
+<ul>
+<li><strong>integrates with Github</strong></li>
+<li>can <strong>publish a subdirectory</strong></li>
+<li>knows Node and can <strong>run build scripts</strong></li>
+</ul>
+<p>...which all seems like an <strong>excellent fit</strong> for our setup!</p>
+</div></section><section class="slide" data-pos="4-7-5">
+<span class="pos">4-7-5</span>
+<div class="slidecontent"><p>And we&#39;ll go fix it right now, with step-by-step instructions in the exercise!</p>
+</div></section>
+</section>
+<!--ENDSECTION7-->
+<!--STARTSECTION8--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 8/8</div>
+      <h3>Exercise - Netlify</h3>
+      
+    </div>
+  </section>
+  <section class="slide" data-pos="4-8-1">
+<span class="pos">4-8-1</span>
+<div class="slidecontent"><div class="goal"></div>
+
+<p>Goal: Autopublish our app online</p>
+</div></section><section class="slide list" data-pos="4-8-2">
+<span class="pos">4-8-2</span>
+<div class="slidecontent">
+<ul>
+<li><span>a</span>sign up on Netlify</li>
+<li><span>b</span>connect your repo</li>
+<li><span>c</span>configure the build</li>
+<li><span>d</span>configure the site</li>
+</ul>
+</div></section><section class="slide num numA" data-pos="4-8-3">
+<span class="pos">4-8-3</span>
+<div class="slidecontent">
+<p>Go to <a href="https://app.netlify.com/signup">https://app.netlify.com/signup</a>, and choose to sign up with your <strong>Github credentials</strong>.</p>
+<p>This will allow Netlify to connect to your repos.</p>
+</div></section><section class="slide num numB" data-pos="4-8-4">
+<span class="pos">4-8-4</span>
+<div class="slidecontent">
+<p>Once logged in, click <strong>New site from Git</strong>:</p>
+<p><img src="resources/images/newnetlify.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-8-5">
+<span class="pos">4-8-5</span>
+<div class="slidecontent"><p>On the next screen, select <strong>Github</strong>:</p>
+<p><img src="resources/images/newnetlifygithub.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-8-6">
+<span class="pos">4-8-6</span>
+<div class="slidecontent"><p>Next you&#39;ll have to <strong>find the correct repo</strong> among a list of all your repos. If you have many, use the search field to the right.</p>
+<p><img src="resources/images/newnetlifyfindrepo.png" alt=""></p>
+<p>Once you find it, click it!</p>
+</div></section><section class="slide num numC" data-pos="4-8-7">
+<span class="pos">4-8-7</span>
+<div class="slidecontent">
+<p>We must now tell Netlify <strong>which folder to publish</strong> and <strong>what command to run</strong>:</p>
+<p><img src="resources/images/newnetlifyconfig.png" alt=""></p>
+<p>We can also specify a <strong>branch</strong> and <strong>advanced options</strong>, but we won&#39;t need either.</p>
+</div></section><section class="slide num numD" data-pos="4-8-8">
+<span class="pos">4-8-8</span>
+<div class="slidecontent">
+<p>Your new app will get a <strong>random name</strong> - let&#39;s fix that! Go to the <strong>Settings tab</strong>:</p>
+<p><img src="resources/images/newnetlifysettings.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-8-9">
+<span class="pos">4-8-9</span>
+<div class="slidecontent"><p>On that screen, in the <strong>Site information</strong> section, hit <strong>Change site name</strong>:</p>
+<p><img src="resources/images/newnetlifynewname.png" alt=""></p>
+</div></section><section class="slide" data-pos="4-8-10">
+<span class="pos">4-8-10</span>
+<div class="slidecontent"><p>Now for the magic - if you change your site name to <code>myawesomereviewsite</code>, then...</p>
+<ul>
+<li>your site is visitable at <strong><code>http://myawesomereviewsite.netlify.com</code></strong></li>
+<li>it <strong>updates whenever you push to Github</strong>!</li>
+</ul>
+<p>But, since I&#39;ve already used <code>myawesomereviewsite</code>, you&#39;ll have to pick something else! :)</p>
+</div></section><section class="slide" data-pos="4-8-11">
+<span class="pos">4-8-11</span>
+<div class="slidecontent"><div class="checklist"></div>
+
+<p>You are done when...</p>
+<ul>
+<li>The app is visitable online</li>
+<li>Pushing to <code>master</code> updates the app</li>
+</ul>
+</div></section>
+</section>
+<!--ENDSECTION8--><!--ENDCHAPTERCONTENT-->
+        
+
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var basehref = window.location.href.replace(/chapter\d.*?$/,'')
+
+      document.addEventListener("keydown",function(e){
+        var code = e.which || e.keyCode;
+        if (code===13){
+          window.location.href = basehref+"index.html?from="+(4-1);
+        } else if (code >= 49 && code <= 8+48) {
+          window.location.hash = "#/" + (code-48+1+0);
+        }
+        if (4 < 6) {
+          if (code===99){ // the letter C for next Chapter
+            window.location.href = basehref+"chapter"+(4+1)+".html"
+          }
+        }
+      });
+    </script>
+    <script src="mc2/scripts/head.js" type="text/javascript"></script>
+    <script src="mc2/scripts/reveal.js" type="text/javascript"></script>
+    <script src="mc2/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    showNotes: false,
+    transition: 'slide',
+    dependencies: [
+      { src: 'mc2/scripts/plugin/notes/notes.js', async: true }
+    ]
+  })
+
+    window.onload = function(){
+
+      var links = document.querySelectorAll("a.link");
+      for(var i=0;i<links.length;i++){
+        var link = links[i];
+        link.innerHTML = link.innerHTML.replace(/ /g,'&nbsp;')
+      }
+      var posElem = document.getElementById('pos')
+      function updateReference(){
+        setTimeout(function(){
+          var currentpos = document.querySelector('section.present[data-pos]')
+          if (currentpos){
+            posElem.innerHTML = currentpos.getAttribute('data-pos')
+          } else {
+            posElem.innerHTML = ''
+          }
+          if (document.querySelector('.present.chaptertitle')){
+            document.body.classList.add('atchaptertitle');
+          } else {
+            document.body.classList.remove('atchaptertitle');
+          }
+        },10)
+      }
+
+      window.addEventListener("hashchange",updateReference);
+
+      updateReference();
+    };
+
+    </script>
+    <!--STARTCOURSESPECIFICSCRIPTS--><!--ENDCOURSESPECIFICSCRIPTS-->
+  </body>
+</html>

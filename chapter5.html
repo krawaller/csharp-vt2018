@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>The next level</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="icon" type="image/x-icon" href="mc2/images/favicon.ico">
+
+    <link rel="stylesheet" href="mc2/styles/reveal.css">
+    <link rel="stylesheet" href="mc2/styles/theme.css" id="theme">
+    <link rel="stylesheet" href="mc2/styles/code.css">
+    <!--STARTCOURSESPECIFICSTYLES--><link rel="stylesheet" href="styles/stuff.css"><!--ENDCOURSESPECIFICSTYLES-->
+  </head>
+
+  <body>
+    <div id="pos"></div>
+    <div class="reveal">
+      <div class="slides">
+        <section class="slide chaptertitle">
+          <div class="slidecontent">
+            <div class="chapternumber"> chapter 5 of 6 </div>
+            <h1>The next level</h1>
+            <span>Upping the ante</p>
+</span>
+          </div>
+        </section>
+        
+        <!--STARTSECTIONINDEX--><section class="slide sectionlist">
+  <div class="slidecontent">
+    <h3>Sections in this chapter</h3>
+    <ol>
+    <li><a href="#/2">TypeScript</a></li>
+<li><a href="#/3">Exercise&nbsp;&#8209;&nbsp;Converting&nbsp;to&nbsp;TypeScript</a></li>
+<li><a href="#/4">Exercise&nbsp;&#8209;&nbsp;Using&nbsp;TypeScript</a></li>
+<li><a href="#/5">Intro&nbsp;to&nbsp;AngularJS</a></li>
+<li><a href="#/6">Exercise&nbsp;&#8209;&nbsp;installing&nbsp;AngularJS</a></li>
+<li><a href="#/7">More&nbsp;AngularJS</a></li>
+<li><a href="#/8">Exercise&nbsp;&#8209;&nbsp;AngularJS&nbsp;Controller</a></li>
+<li><a href="#/9">Controller&nbsp;variant</a></li>
+<li><a href="#/10">Exercise&nbsp;&#8209;&nbsp;Controller,&nbsp;take&nbsp;2</a></li>
+<li><a href="#/11">What&nbsp;comes&nbsp;next?</a></li>
+<li><a href="#/12">Exercise&nbsp;&#8209;&nbsp;Exploring&nbsp;AngularJS&nbsp;Component</a></li>
+    </ol>
+  </div>
+</section>
+<!--ENDSECTIONINDEX-->
+        <!--STARTCHAPTERCONTENT--><!--STARTSECTION1--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 1/11</div>
+      <h3>TypeScript</h3>
+      <p>Fooling the devil</p>
+</p>
+    </div>
+  </section>
+  <section class="slide" data-pos="5-1-1">
+<span class="pos">5-1-1</span>
+<div class="slidecontent"><div class="learn"></div>
+
+<p>Learn about <strong>TypeScript</strong></p>
+</div></section><section class="slide" data-pos="5-1-2">
+<span class="pos">5-1-2</span>
+<div class="slidecontent"><p>So - </p>
+<p><img src="resources/images/typescript.svg" alt=""></p>
+</div></section><section class="slide" data-pos="5-1-3">
+<span class="pos">5-1-3</span>
+<div class="slidecontent"><p>The <strong>catchphrase</strong> for <a href="https://www.typescriptlang.org/">TypeScript</a> is...</p>
+<blockquote>
+<p>JavaScript that scales</p>
+</blockquote>
+<p>...and that&#39;s a pretty good description! TypeScript is regular JavaScript (ES6, to be more precise), but with some <strong>useful tools added on top</strong>. In mathetical terms this means a <strong>superset of JavaScript</strong>.</p>
+</div></section><section class="slide" data-pos="5-1-4">
+<span class="pos">5-1-4</span>
+<div class="slidecontent"><p>The browsers can&#39;t understand TypeScript, however, so we must <strong>compile</strong> it before we serve it:</p>
+<p><img src="resources/diagrams/ts-compile.svg" alt=""></p>
+<p>Conceptually the <strong>same as we did for LESS</strong>!</p>
+</div></section><section class="slide" data-pos="5-1-5">
+<span class="pos">5-1-5</span>
+<div class="slidecontent"><p>So <strong>what does TypeScript add</strong>? Many things!</p>
+<p>Most importantly <strong>types</strong>, as the name suggests.</p>
+</div></section><section class="slide" data-pos="5-1-6">
+<span class="pos">5-1-6</span>
+<div class="slidecontent"><p>We can <strong>add type annotations to variables, parameters and functions</strong>:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">let</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'foo'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAllowedInToTheBar</span>(<span class="hljs-params">age: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">boolean</span> </span>{
+  <span class="hljs-keyword">return</span> age &gt;= <span class="hljs-number">18</span>;
+}
+</code></pre>
+<p>Now, if some other code <strong>violates these annotations</strong>, TypeScript would <strong>flag this as a problem</strong>. (During compilation, or even earlier, if your editor is TypeScript-aware.)</p>
+</div></section><section class="slide" data-pos="5-1-7">
+<span class="pos">5-1-7</span>
+<div class="slidecontent"><p>However, the <strong>real power of TypeScript</strong> is that it does <strong>static analysis</strong> of your code. So if we later typed this...</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">let</span> willHaveFunTonight = isAllowedInToTheBar(<span class="hljs-number">16</span>);
+</code></pre>
+<p>...and hovered above <code>willHaveFunTonight</code>, a TypeScript-aware editor would <strong>tell you that this is a boolean</strong>!</p>
+</div></section><section class="slide" data-pos="5-1-8">
+<span class="pos">5-1-8</span>
+<div class="slidecontent"><p>In other words, <strong>this example code</strong>...</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">let</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'foo'</span>;
+</code></pre>
+<p>...was <strong>unnecessarily complex</strong>, as <strong>this would be enough</strong>:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">let</span> name = <span class="hljs-string">'foo'</span>;
+</code></pre>
+<p>TypeScript <strong>sees from the assignment that <code>name</code> is a string</strong>, and will treat it as such.</p>
+</div></section><section class="slide" data-pos="5-1-9">
+<span class="pos">5-1-9</span>
+<div class="slidecontent"><p>In other words - simply by activating TypeScript we <strong>get a lot of power</strong>, even if we <strong>don&#39;t use any type annotations</strong>!</p>
+</div></section><section class="slide" data-pos="5-1-10">
+<span class="pos">5-1-10</span>
+<div class="slidecontent"><p>Perhaps the most powerful part of TypeScript is that it allows us to <strong>create types for object shapes</strong>:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">type</span> User {
+  name: <span class="hljs-built_in">string</span>,
+  age: <span class="hljs-built_in">number</span>
+}
+</code></pre>
+</div></section><section class="slide" data-pos="5-1-11">
+<span class="pos">5-1-11</span>
+<div class="slidecontent"><p>Now we can <strong>type our objects</strong>...</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">let</span> me: User = { name: <span class="hljs-string">"David"</span>, age: <span class="hljs-number">37</span> };
+</code></pre>
+<p>...and <strong>TypeScript will ensure compliance</strong>:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">let</span> you: User = { name: <span class="hljs-string">"Bob"</span> }; <span class="hljs-comment">// angry red squiggly line since we're missing age</span>
+</code></pre>
+</div></section><section class="slide" data-pos="5-1-12">
+<span class="pos">5-1-12</span>
+<div class="slidecontent"><p>Note that <strong>types are purely a development artifact</strong>, there&#39;ll be <strong>no trace of them in the generated JS code</strong>.</p>
+<p>Which means there&#39;s <strong>no performance or bloat penalty</strong> to using them, but we gain in <strong>code clarity</strong> and <strong>bug prevention</strong>!</p>
+</div></section><section class="slide" data-pos="5-1-13">
+<span class="pos">5-1-13</span>
+<div class="slidecontent"><p>There is a lot more to say about TypeScript. In fact, we have a <a href="https://edument.se/education/categories/webdevelopment/typescript">whole course just about TypeScript</a>!</p>
+</div></section>
+</section>
+<!--ENDSECTION1-->
+<!--STARTSECTION2--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 2/11</div>
+      <h3>Exercise - Converting to TypeScript</h3>
+      
+    </div>
+  </section>
+  <section class="slide" data-pos="5-2-1">
+<span class="pos">5-2-1</span>
+<div class="slidecontent"><div class="goal"></div>
+
+<p>Goal: Install TypeScript</p>
+</div></section><section class="slide list" data-pos="5-2-2">
+<span class="pos">5-2-2</span>
+<div class="slidecontent">
+<p>Specifically, we will:</p>
+<ul>
+<li><span>a</span>Get dependencies</li>
+<li><span>b</span>TypeScriptify code files</li>
+<li><span>c</span>Configure TypeScript</li>
+<li><span>d</span>Make Webpack use typescript</li>
+<li><span>e</span>Fix a TS linter</li>
+</ul>
+</div></section><section class="slide num numA" data-pos="5-2-3">
+<span class="pos">5-2-3</span>
+<div class="slidecontent">
+<p>First we need to <strong>install</strong>..</p>
+<ul>
+<li><strong>TypeScript</strong>, which includes the compiler</li>
+<li><strong>TS-loader</strong>, which is what allows webpack to read the typescript files and turn them into regular JavaScript</li>
+</ul>
+<pre><code class="lang-bash">npm install --save-dev typescript ts-loader
+</code></pre>
+</div></section><section class="slide num numB" data-pos="5-2-4">
+<span class="pos">5-2-4</span>
+<div class="slidecontent">
+<p>Now we need to <strong>turn our files into typescript files</strong>!</p>
+<p>First, simply <strong>rename them to <code>.ts</code></strong>!</p>
+<p><img src="resources/images/tsfiles.png" alt=""></p>
+</div></section><section class="slide" data-pos="5-2-5">
+<span class="pos">5-2-5</span>
+<div class="slidecontent"><p>We also have to use <strong><code>import</code>/<code>export</code> syntax</strong>.</p>
+<p>In <strong><code>data.ts</code></strong>, instead of doing <code>module.exports</code>, do:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> movieData = {
+ <span class="hljs-comment">// truncated</span>
+};
+</code></pre>
+</div></section><section class="slide" data-pos="5-2-6">
+<span class="pos">5-2-6</span>
+<div class="slidecontent"><p>And in <strong><code>code.ts</code></strong> we exchange the <code>require</code> bits to:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> {movieData} <span class="hljs-keyword">from</span> <span class="hljs-string">"./data"</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> $ <span class="hljs-keyword">from</span> <span class="hljs-string">"jquery"</span>;
+</code></pre>
+<p>For those of you who already used the <code>import/export</code> syntax - note how we <strong>must do <code>import * as $</code></strong> for jQuery instead of just <strong> <code>import $</code></strong>.</p>
+</div></section><section class="slide num numC" data-pos="5-2-7">
+<span class="pos">5-2-7</span>
+<div class="slidecontent">
+<p>Next we need to <strong>configure TypeScript</strong>. Create a new file with the magical name <strong><code>tsconfig.json</code></strong>:</p>
+<p><img src="resources/images/tsconfigfile.png" alt=""></p>
+</div></section><section class="slide" data-pos="5-2-8">
+<span class="pos">5-2-8</span>
+<div class="slidecontent"><p>In that file put <strong>this content</strong>:</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"compilerOptions"</span>: {
+    <span class="hljs-attr">"sourceMap"</span>: <span class="hljs-literal">true</span>
+  }
+}
+</code></pre>
+</div></section><section class="slide" data-pos="5-2-9">
+<span class="pos">5-2-9</span>
+<div class="slidecontent"><p>There are of course <strong>a lot more options</strong> that can go into here, but this will suffice for now!</p>
+</div></section><section class="slide num numD" data-pos="5-2-10">
+<span class="pos">5-2-10</span>
+<div class="slidecontent">
+<p>Time to <strong>make WebPack aware of TypeScript</strong> by doing some <strong>changes to <code>webpack.config.js</code></strong>!</p>
+<p>First we need to <strong>change the <code>entry</code></strong> from <code>code.js</code> to <code>code.ts</code> since we renamed the file:</p>
+<pre><code class="lang-javascript">  entry: <span class="hljs-string">'./code.ts'</span>,
+</code></pre>
+</div></section><section class="slide" data-pos="5-2-11">
+<span class="pos">5-2-11</span>
+<div class="slidecontent"><p>Next we must tell WebPack to <strong>care about <code>.ts</code> files</strong>, otherwise it&#39;ll just ignore them! This is done with a <strong><code>resolve</code></strong> key, like this:</p>
+<pre><code class="lang-javascript">  resolve: {
+    <span class="hljs-attr">extensions</span>: [<span class="hljs-string">'.ts'</span>, <span class="hljs-string">'.js'</span>]
+  }
+</code></pre>
+</div></section><section class="slide" data-pos="5-2-12">
+<span class="pos">5-2-12</span>
+<div class="slidecontent"><p>Finally, below <code>resolve</code>, we must tell it to <strong>use TypeScript to read those files</strong>:</p>
+<pre><code class="lang-javascript">  <span class="hljs-built_in">module</span>: {
+    <span class="hljs-attr">rules</span>: [
+      <span class="hljs-comment">// all files with a `.ts` extension will be handled by `ts-loader`</span>
+      { <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.ts$/</span>, <span class="hljs-attr">loader</span>: <span class="hljs-string">'ts-loader'</span> }
+    ]
+  },
+</code></pre>
+</div></section><section class="slide" data-pos="5-2-13">
+<span class="pos">5-2-13</span>
+<div class="slidecontent"><p>After all this, you should be able to do...</p>
+<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> bundle</span>
+</code></pre><p>...and it should still work like before!</p>
+</div></section><section class="slide num numE" data-pos="5-2-14">
+<span class="pos">5-2-14</span>
+<div class="slidecontent">
+<p>Final item on the agenda - we must <strong>fix the code linting</strong>!</p>
+<p>ESLint doesn&#39;t understand TS, so, start by <strong>removing it</strong>! That is,</p>
+<ul>
+<li><strong>delete <code>.eslintrc</code></strong></li>
+<li><strong>delete <code>.eslintignore</code></strong></li>
+<li><strong>remove it from dependency in package.json</strong></li>
+</ul>
+</div></section><section class="slide" data-pos="5-2-15">
+<span class="pos">5-2-15</span>
+<div class="slidecontent"><p>Instead we&#39;ll be using <a href="https://palantir.github.io/tslint/">TSLint</a>! So go do:</p>
+<pre><code>npm install --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span> tslint
+</code></pre></div></section><section class="slide" data-pos="5-2-16">
+<span class="pos">5-2-16</span>
+<div class="slidecontent"><p>Now <strong>create a file called <code>tslint.json</code></strong> and paste in the following:</p>
+<pre><code>{
+    <span class="hljs-attr">"defaultSeverity"</span>: <span class="hljs-string">"error"</span>,
+    <span class="hljs-attr">"extends"</span>: [
+        <span class="hljs-string">"tslint:recommended"</span>
+    ],
+    <span class="hljs-attr">"jsRules"</span>: {},
+    <span class="hljs-attr">"rules"</span>: {},
+    <span class="hljs-attr">"rulesDirectory"</span>: []
+}
+</code></pre><p>The <strong><code>&quot;extends&quot; : [&quot;tslint:recommended&quot;]</code></strong> part will give us a whole bunch of sane <strong>defaults</strong>. Remove it if it annoys you. :)</p>
+</div></section><section class="slide" data-pos="5-2-17">
+<span class="pos">5-2-17</span>
+<div class="slidecontent"><p>Of course we should <strong>add a few rules of our own choosing too</strong>!</p>
+<ul>
+<li>See the full list at <a href="https://palantir.github.io/tslint/rules/">https://palantir.github.io/tslint/rules/</a></li>
+<li>Pick a few that you like</li>
+<li>Add them to the <code>tslint.json</code> file in the <code>rules</code> section</li>
+</ul>
+</div></section><section class="slide" data-pos="5-2-18">
+<span class="pos">5-2-18</span>
+<div class="slidecontent"><p>And as before we must <strong>make VSC aware</strong> of our linter! Find the <strong><code>TSLint</code> extension</strong> in the marketplace tab:</p>
+<p><img src="resources/images/vsc-tslint.png" alt=""></p>
+<p>After reloading the VSC window you should now get linting in your ts files!</p>
+</div></section><section class="slide" data-pos="5-2-19">
+<span class="pos">5-2-19</span>
+<div class="slidecontent"><p>Final order of linting business - we must <strong>replace the <code>lintjs</code> script</strong> with something using TSLint instead!</p>
+<pre><code>   <span class="hljs-string">"lintts"</span>: <span class="hljs-string">"tslint -c tslint.json '*.ts'"</span>
+</code></pre><p>If you have deep folders you might need <code>tslint -c tslint.json &#39;**/*.ts&#39;</code> instead.</p>
+</div></section><section class="slide" data-pos="5-2-20">
+<span class="pos">5-2-20</span>
+<div class="slidecontent"><p>Final final order of linting business -  don&#39;t forget to update <code>.circleci/config.yml</code> to use this new command!</p>
+</div></section><section class="slide question" data-pos="5-2-21">
+<span class="pos">5-2-21</span>
+<div class="slidecontent">
+<p>So, after all this - <strong>what did we actually gain</strong>?</p>
+</div></section><section class="slide answer" data-pos="5-2-22">
+<span class="pos">5-2-22</span>
+<div class="slidecontent">
+<p>So far - <strong>nothing</strong>!</p>
+<p>But now that TypeScript is in place, we can <strong>reap the rewards</strong> in the <strong>next exercise</strong>!</p>
+</div></section><section class="slide" data-pos="5-2-24">
+<span class="pos">5-2-24</span>
+<div class="slidecontent"><div class="checklist"></div>
+
+<p>You are done when...</p>
+<ul>
+<li>The files are <code>.ts</code> files</li>
+<li>Running <code>npm run bundle</code> generates a bundle like before</li>
+<li>The app hasn&#39;t changed at all, it still runs</li>
+</ul>
+</div></section><section class="slide" data-pos="5-2-25">
+<span class="pos">5-2-25</span>
+<div class="slidecontent"><div class="solution"></div>
+
+<p>If you get stuck, see the <a href="https://github.com/krawaller/js-app-solutions/tree/master/typescript_start">TypeScript Start</a> solution.</p>
+</div></section>
+</section>
+<!--ENDSECTION2-->
+<!--STARTSECTION3--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 3/11</div>
+      <h3>Exercise - Using TypeScript</h3>
+      <p>Reaping the rewards</p>
+</p>
+    </div>
+  </section>
+  <section class="slide" data-pos="5-3-1">
+<span class="pos">5-3-1</span>
+<div class="slidecontent"><div class="goal"></div>
+
+<p>Goal: Employ TypeScript power in our code</p>
+</div></section><section class="slide list" data-pos="5-3-2">
+<span class="pos">5-3-2</span>
+<div class="slidecontent">
+<p>Here&#39;s the plan:</p>
+<ul>
+<li><span>a</span>Utilize ES6 syntax</li>
+<li><span>b</span>Add a type for our review data</li>
+<li><span>c</span>Get type help for jQuery</li>
+</ul>
+</div></section><section class="slide num numA" data-pos="5-3-3">
+<span class="pos">5-3-3</span>
+<div class="slidecontent">
+<p>Since <strong>TypeScript contains the ES6 syntax</strong>, perhaps we could use some other neat ES6 feature? For instance, use an <strong>arrow function</strong> as event handler!</p>
+<pre><code class="lang-typescript">ui.rating.on(<span class="hljs-string">"click"</span>, <span class="hljs-string">"span"</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+  <span class="hljs-comment">// truncated</span>
+});
+</code></pre>
+<p>For <strong>more tips on ES6 stuff</strong>, see the <strong>ES6 appendix</strong>!</p>
+</div></section><section class="slide num numB" data-pos="5-3-4">
+<span class="pos">5-3-4</span>
+<div class="slidecontent">
+<p>We have one <strong>implicit class</strong> in our app right now - the <strong>review data</strong>!</p>
+<p>That has a certain shape, but inside the code we get <strong>no help enforcing the correctness</strong> of our usage.</p>
+<p>Let&#39;s fix that!</p>
+</div></section><section class="slide" data-pos="5-3-5">
+<span class="pos">5-3-5</span>
+<div class="slidecontent"><p>I like to add such stuff in a separate <strong><code>interfaces.ts</code></strong> file:</p>
+<p><img src="resources/images/interfacesfile.png" alt=""></p>
+</div></section><section class="slide" data-pos="5-3-6">
+<span class="pos">5-3-6</span>
+<div class="slidecontent"><p>Inside that file we&#39;ll <strong>create an object type</strong> and export it. Here&#39;s the one for my review data:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Review = {
+  title: <span class="hljs-built_in">string</span>
+  imgUrl: <span class="hljs-built_in">string</span>
+  review: <span class="hljs-built_in">string</span>
+  actors: <span class="hljs-built_in">string</span>[]
+}
+</code></pre>
+<p>Add one that matches your data!</p>
+</div></section><section class="slide" data-pos="5-3-7">
+<span class="pos">5-3-7</span>
+<div class="slidecontent"><p>Then we should <strong>use that type in <code>data.ts</code></strong>!</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { Review } <span class="hljs-keyword">from</span> <span class="hljs-string">"./interfaces"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> movieData: Review = {
+  <span class="hljs-comment">// truncated</span>
+};
+</code></pre>
+</div></section><section class="slide" data-pos="5-3-8">
+<span class="pos">5-3-8</span>
+<div class="slidecontent"><p>...and also in <strong><code>code.ts</code></strong> to <strong>type the <code>renderMovie</code> parameter</strong>:</p>
+<pre><code><span class="hljs-keyword">import</span> { Review } <span class="hljs-keyword">from</span> <span class="hljs-string">"./interfaces"</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderMovie</span>(<span class="hljs-params">data: Review</span>)</span>{
+  <span class="hljs-comment">// truncated</span>
+}
+</code></pre></div></section><section class="slide" data-pos="5-3-9">
+<span class="pos">5-3-9</span>
+<div class="slidecontent"><p>Because, having done that we get <strong>full intellisense</strong> for our custom data:</p>
+<p><img src="resources/images/intellisense.png" alt=""></p>
+</div></section><section class="slide num numC" data-pos="5-3-10">
+<span class="pos">5-3-10</span>
+<div class="slidecontent">
+<p>TypeScript can also help us with <strong>intellisense for 3rd party code</strong>. Let&#39;s fix that for <strong><code>jQuery</code></strong>!</p>
+<p>Simply <strong>install the official typings for jQuery</strong>...</p>
+<pre><code><span class="hljs-built_in">npm</span> install --save-dev @types/jquery
+</code></pre></div></section><section class="slide" data-pos="5-3-11">
+<span class="pos">5-3-11</span>
+<div class="slidecontent"><p>...and <strong>register them in <code>tsconfig.json</code></strong>:</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"compilerOptions"</span>: {
+    <span class="hljs-attr">"sourceMap"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"types"</span>: [
+      <span class="hljs-string">"jquery"</span>
+    ]
+  }
+}
+</code></pre>
+</div></section><section class="slide" data-pos="5-3-12">
+<span class="pos">5-3-12</span>
+<div class="slidecontent"><p>Having done that we get <strong>full intellisense for jQuery</strong> too!</p>
+<p><img src="resources/images/intellisensejquery.png" alt=""></p>
+</div></section><section class="slide" data-pos="5-3-13">
+<span class="pos">5-3-13</span>
+<div class="slidecontent"><div class="checklist"></div>
+
+<p>You are done when...</p>
+<ul>
+<li>You&#39;re using some <strong>ES6 feature</strong></li>
+<li>You get <strong>intellisense for movie review</strong> data</li>
+<li>You get <strong>intellisense for jQuery</strong></li>
+</ul>
+</div></section><section class="slide" data-pos="5-3-14">
+<span class="pos">5-3-14</span>
+<div class="slidecontent"><div class="solution"></div>
+
+<p>If you get stuck, see the <a href="https://github.com/krawaller/js-app-solutions/tree/master/typescript_next">TypeScript Next</a> solution.</p>
+</div></section>
+</section>
+<!--ENDSECTION3-->
+<!--STARTSECTION4--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 4/11</div>
+      <h3>Intro to AngularJS</h3>
+      <p>Your first JS framework!</p>
+</p>
+    </div>
+  </section>
+  <section class="slide" data-pos="5-4-1">
+<span class="pos">5-4-1</span>
+<div class="slidecontent"><div class="learn"></div>
+
+<p>Learn about <strong>AngularJS</strong></p>
+</div></section><section class="slide" data-pos="5-4-2">
+<span class="pos">5-4-2</span>
+<div class="slidecontent"><p>So! Time to <strong>get to know AngularJS</strong>, a JavaScript <strong>framework</strong> by Google.</p>
+</div></section><section class="slide question" data-pos="5-4-3">
+<span class="pos">5-4-3</span>
+<div class="slidecontent">
+<p><strong>How many JS frameworks</strong> are there?</p>
+</div></section><section class="slide answer" data-pos="5-4-4">
+<span class="pos">5-4-4</span>
+<div class="slidecontent">
+<p>Well.</p>
+<p><a href="https://dayssincelastjavascriptframework.com/">https://dayssincelastjavascriptframework.com/</a></p>
+</div></section><section class="slide question" data-pos="5-4-5">
+<span class="pos">5-4-5</span>
+<div class="slidecontent">
+<p>Speaking of many frameworks - can you <strong>spot the difference</strong> between these two?</p>
+<div class="equality">
+<img src="resources/images/angular1.png" alt="">
+<span></span>
+<img src="resources/images/angular2.svg" alt="">
+</div></div></section><section class="slide answer" data-pos="5-4-6">
+<span class="pos">5-4-6</span>
+<div class="slidecontent">
+<p>Obviously;</p>
+<ul>
+<li>The first is the logo for <strong>AngularJS</strong>, the framework we&#39;re talking about</li>
+<li>The second represents <strong>Angular</strong>, a spiritual successor to AngularJS but a <strong>completely different framework</strong> (even though it started on version 2.0.0)</li>
+</ul>
+</div></section><section class="slide" data-pos="5-4-7">
+<span class="pos">5-4-7</span>
+<div class="slidecontent"><p>Some more comparisons:</p>
+<table class="small">
+  <thead>
+    <tr>
+      <th></th><th>Angular v1</th><th>Angular v2+</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Official name</td>
+      <td>AngularJS</td>
+      <td>Angular</td>
+    </tr>
+    <tr>
+      <td>Homepage</td>
+      <td><a href="http://angularjs.org">http://angularjs.org</a></td>
+      <td><a href="http://angular.io">http://angular.io</a></td>
+    </tr>
+    <tr>
+      <td>NPM package</td>
+      <td><a href="https://www.npmjs.com/package/angular">angular</a></td>
+      <td><a href="https://www.npmjs.com/package/@angular/core">@angular</a></td>
+    </tr>
+    <tr>
+      <td>Git repo</td>
+      <td><a href="https://github.com/angular/angular.js">angular/angular.js</a></td>
+      <td><a href="https://github.com/angular/angular">angular/angular</a></td>
+    </tr>
+    <tr>
+      <td>version (nov 2017)</td>
+      <td>1.6.6</td>
+      <td>5.0.2</td>
+    </tr>
+  </tbody>
+</table></div></section><section class="slide question" data-pos="5-4-8">
+<span class="pos">5-4-8</span>
+<div class="slidecontent">
+<p>...isn&#39;t this <strong>hugely confusing</strong>?</p>
+</div></section><section class="slide answer" data-pos="5-4-9">
+<span class="pos">5-4-9</span>
+<div class="slidecontent">
+<p>Yes. Yes, it is.</p>
+</div></section><section class="slide" data-pos="5-4-10">
+<span class="pos">5-4-10</span>
+<div class="slidecontent"><p>Anyhow! Frameworks. They are all about <strong>providing convenient infrastructure</strong>.</p>
+<p>But before we get to how AngularJS does that, let&#39;s talk about <strong>how to get it up and running</strong>!</p>
+</div></section><section class="slide" data-pos="5-4-11">
+<span class="pos">5-4-11</span>
+<div class="slidecontent"><p>We start an AngularJS application by <strong>creating an app module</strong>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> angular <span class="hljs-keyword">from</span> <span class="hljs-string">"angular"</span>;
+
+<span class="hljs-keyword">let</span> app = angular.module(<span class="hljs-string">"myawesomeapp"</span>, []);
+</code></pre>
+<p>The empty array at the end is for <strong>module dependencies</strong>, if we had any (3rd party ui components, etc).</p>
+</div></section><section class="slide" data-pos="5-4-12">
+<span class="pos">5-4-12</span>
+<div class="slidecontent"><p>We must then <strong>mark where in the HTML the app should instantiate</strong>. We do this by placing a <code>ng-app</code> &quot;directive&quot; in our HTML, telling AngularJS to <strong>connect that element to our app</strong>.</p>
+<p>This is often done on the body:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">ng-app</span>=<span class="hljs-string">"myawesomeapp"</span>&gt;</span>
+</code></pre>
+</div></section><section class="slide" data-pos="5-4-13">
+<span class="pos">5-4-13</span>
+<div class="slidecontent"><p>The app itself doesn&#39;t do anything until we <strong>controllers</strong> to it:</p>
+<pre><code class="lang-javascript">app.controller(<span class="hljs-string">"myawesomecontroller"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope</span>)</span>{
+  $scope.message = <span class="hljs-string">"Hello world!"</span>;
+});
+</code></pre>
+<p>Everything we attach to our weird-looking <strong><code>$scope</code></strong> thing will be available for use in the HTML!</p>
+</div></section><section class="slide" data-pos="5-4-14">
+<span class="pos">5-4-14</span>
+<div class="slidecontent"><p>We can then <strong>connect the controller to an element within the app</strong>:</p>
+<pre><code>&lt;div <span class="hljs-attribute">ng-controller</span>=<span class="hljs-string">"myawesomecontroller"</span>&gt;
+</code></pre><p>And inside of <strong>that</strong>, we can access the values on <strong><code>$scope</code></strong> via <strong>interpolation</strong>:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{message}}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+</div></section><section class="slide" data-pos="5-4-15">
+<span class="pos">5-4-15</span>
+<div class="slidecontent"><p>There is so much more to tell, but what you just saw is the <strong>basic pattern of AngularJS</strong>!</p>
+</div></section>
+</section>
+<!--ENDSECTION4-->
+<!--STARTSECTION5--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 5/11</div>
+      <h3>Exercise - installing AngularJS</h3>
+      
+    </div>
+  </section>
+  <section class="slide" data-pos="5-5-1">
+<span class="pos">5-5-1</span>
+<div class="slidecontent"><div class="goal"></div>
+
+<p>Goal: Install AngularJS</p>
+</div></section><section class="slide" data-pos="5-5-2">
+<span class="pos">5-5-2</span>
+<div class="slidecontent"><p>In this exercise we&#39;ll just <strong>install angular</strong> and make sure it&#39;s working.</p>
+<p>We&#39;ll <strong>let our existing jQuery logic stay</strong> for now.</p>
+</div></section><section class="slide list" data-pos="5-5-3">
+<span class="pos">5-5-3</span>
+<div class="slidecontent">
+<p>Here&#39;s the battle plan:</p>
+<ul>
+<li><span>a</span>install angular</li>
+<li><span>b</span>create minimal app and controller</li>
+<li><span>c</span>hook it into HTML</li>
+</ul>
+</div></section><section class="slide num numA" data-pos="5-5-4">
+<span class="pos">5-5-4</span>
+<div class="slidecontent">
+<p>First we <strong>install and download the package</strong>:</p>
+<pre><code class="lang-bash">npm install --save angular
+</code></pre>
+</div></section><section class="slide" data-pos="5-5-5">
+<span class="pos">5-5-5</span>
+<div class="slidecontent"><p>We&#39;ll also want to <strong>fix the typings</strong>! First we install them...</p>
+<pre><code class="lang-bash">npm install --save-dev @types/angular
+</code></pre>
+<p>...and then we <strong>register them in <code>tsconfig.json</code></strong>:</p>
+<pre><code class="lang-json">{
+  <span class="hljs-attr">"compilerOptions"</span>: {
+    <span class="hljs-attr">"sourceMap"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"types"</span>: [
+      <span class="hljs-string">"angular"</span>,
+      <span class="hljs-string">"jquery"</span>
+    ]
+  }
+}
+</code></pre>
+</div></section><section class="slide num numB" data-pos="5-5-6">
+<span class="pos">5-5-6</span>
+<div class="slidecontent">
+<p>Next we create a minimal <strong>app</strong> and <strong>controller</strong>. Put this at the top of <code>code.ts</code>:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> angular <span class="hljs-keyword">from</span> <span class="hljs-string">"angular"</span>;
+
+<span class="hljs-keyword">let</span> app = angular.module(<span class="hljs-string">"reviewApp"</span>, []);
+
+app.controller(<span class="hljs-string">"reviewController"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope</span>)</span>{
+  $scope.message = <span class="hljs-string">"Hello from Angular!"</span>;
+});
+</code></pre>
+</div></section><section class="slide num numC" data-pos="5-5-7">
+<span class="pos">5-5-7</span>
+<div class="slidecontent">
+<p>Finally, let&#39;s hook this up to the HTML in <code>index.html</code>!</p>
+<p>First, use <strong><code>ng-app</code></strong> to tell AngularJS to start the app in the <code>body</code>:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">ng-app</span>=<span class="hljs-string">"reviewApp"</span>&gt;</span>
+</code></pre>
+</div></section><section class="slide" data-pos="5-5-8">
+<span class="pos">5-5-8</span>
+<div class="slidecontent"><p>Next we <strong>connect the controller</strong> to the container div using <strong><code>ng-controller</code></strong>:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-controller</span>=<span class="hljs-string">"reviewController"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span>&gt;</span>
+</code></pre>
+</div></section><section class="slide" data-pos="5-5-9">
+<span class="pos">5-5-9</span>
+<div class="slidecontent"><p>Finally, just inside that div, we <strong>interpolate the <code>message</code></strong> from the controller just to make sure things work:</p>
+<pre><code class="lang-html">{{message}}
+</code></pre>
+</div></section><section class="slide" data-pos="5-5-10">
+<span class="pos">5-5-10</span>
+<div class="slidecontent"><p>If it all works out you should <strong>see the message</strong> in the rendered app!</p>
+<p><img src="resources/images/message.png" alt=""></p>
+</div></section><section class="slide" data-pos="5-5-11">
+<span class="pos">5-5-11</span>
+<div class="slidecontent"><div class="checklist"></div>
+
+<p>You are done when...</p>
+<ul>
+<li>You see the message from AngularJS</li>
+<li>Nothing else changed</li>
+</ul>
+</div></section><section class="slide" data-pos="5-5-12">
+<span class="pos">5-5-12</span>
+<div class="slidecontent"><div class="solution"></div>
+
+<p>If you get stuck, see the <a href="https://github.com/krawaller/js-app-solutions/tree/master/angular_start">Angular Start</a> solution.</p>
+</div></section>
+</section>
+<!--ENDSECTION5-->
+<!--STARTSECTION6--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 6/11</div>
+      <h3>More AngularJS</h3>
+      <p>An AngularJS cookbook</p>
+</p>
+    </div>
+  </section>
+  <section class="slide" data-pos="5-6-1">
+<span class="pos">5-6-1</span>
+<div class="slidecontent"><div class="learn"></div>
+
+<p>Learn about the <strong>AngularJS nitty-gritty</strong></p>
+</div></section><section class="slide" data-pos="5-6-2">
+<span class="pos">5-6-2</span>
+<div class="slidecontent"><p>Of course, what we just did didn&#39;t accomplish anything (except for making our bundle 10x bigger).</p>
+<p>Time to start <strong>actually using AngularJS</strong>!</p>
+</div></section><section class="slide list" data-pos="5-6-3">
+<span class="pos">5-6-3</span>
+<div class="slidecontent">
+<p>Here you&#39;ll get some <strong>useful patterns</strong> that we will emply later!</p>
+<ul>
+<li><span>a</span>interpolation</li>
+<li><span>b</span>rendering lists</li>
+<li><span>c</span>conditional class</li>
+<li><span>d</span>handling events</li>
+<li><span>e</span>dynamic images</li>
+<li><span>f</span>hide unhandled templates</li>
+</ul>
+</div></section><section class="slide num numA" data-pos="5-6-4">
+<span class="pos">5-6-4</span>
+<div class="slidecontent">
+<p>You&#39;ve <strong>already seen this</strong>, but let&#39;s repeat: In the controller we can <strong>attach data to the <code>$scope</code></strong>...</p>
+<pre><code class="lang-javascript">app.controller(<span class="hljs-string">"myawesomecontroller"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope</span>)</span>{
+  $scope.greeting = <span class="hljs-string">"Hello world!"</span>;
+});
+</code></pre>
+<p>...which can then be <strong>accessed in the template</strong>:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-controller</span>=<span class="hljs-string">"myawesomecontroller"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{greeting}}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+</div></section><section class="slide num numB" data-pos="5-6-5">
+<span class="pos">5-6-5</span>
+<div class="slidecontent">
+<p>AngularJS has an <strong><code>ng-repeat</code></strong> directive to <strong>repeat an HTML element for each item in a list</strong>. Say we expose a list:</p>
+<pre><code class="lang-javascript">$scope.chores = [<span class="hljs-string">"make bed"</span>, <span class="hljs-string">"take out trash"</span>, <span class="hljs-string">"do dishes"</span>];
+</code></pre>
+<p>Then in the HTML we can do this:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">ng-repeat</span>=<span class="hljs-string">"item in chores"</span>&gt;</span>{{item}}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre>
+<p>Here <code>item</code> is just an iteration variable name that we make up, like <code>i</code> in a for loop.</p>
+</div></section><section class="slide num numC" data-pos="5-6-6">
+<span class="pos">5-6-6</span>
+<div class="slidecontent">
+<p>AngularJS has a syntax to <strong>conditionally give an element a class</strong>. Let&#39;s say we have this CSS...</p>
+<pre><code><span class="hljs-selector-class">.highlight</span> {
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">3px</span> solid gold;
+}
+</code></pre><p>...and we expose a <code>isHighlighted</code> boolean in the controller:</p>
+<pre><code><span class="hljs-meta">$</span><span class="bash">scope.isHighlighted = <span class="hljs-literal">true</span>;</span>
+</code></pre></div></section><section class="slide" data-pos="5-6-7">
+<span class="pos">5-6-7</span>
+<div class="slidecontent"><p>Then in the HTML we have a paragraph that we want to <strong>get the <code>.hightlight</code> class when the <code>isHighlighted</code> flag is true</strong>. We accomplish that using the <strong><code>ng-class</code></strong> directive:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">ng-class</span>=<span class="hljs-string">"{highlight: isHighlighted}"</span>&gt;</span>
+</code></pre>
+<p>It has an <strong>object-like syntax</strong>; the keys are classes that we maybe get, and the values determine if we get that particular key.</p>
+</div></section><section class="slide num numD" data-pos="5-6-8">
+<span class="pos">5-6-8</span>
+<div class="slidecontent">
+<p>AngularJS lets us catch event via <strong>event-specific directives</strong>. For example we capture click events using <strong><code>ng-click</code></strong>!</p>
+<p>There are <strong>two parts to this</strong> - first we <strong>expose a handler in our controller</strong>:</p>
+<pre><code class="lang-javascript">$scope.handleClick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  alert(<span class="hljs-string">"BOOM went the world!"</span>);
+}
+</code></pre>
+</div></section><section class="slide" data-pos="5-6-9">
+<span class="pos">5-6-9</span>
+<div class="slidecontent"><p>Secondly, in the HTML, we&#39;ll <strong>call that handler</strong> from code written inside <strong><code>ng-click</code></strong>:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">ng-click</span>=<span class="hljs-string">"handleClick()"</span>&gt;</span>Don't press me<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre>
+<p>As you can see this is <strong>very similar to oldschool <code>onclick</code></strong>!</p>
+</div></section><section class="slide num numE" data-pos="5-6-10">
+<span class="pos">5-6-10</span>
+<div class="slidecontent">
+<p>Let&#39;s say we have a <strong>dynamic URL for an image</strong> that we expose in the controller:</p>
+<pre><code class="lang-javascript">$scope.urlToImage = <span class="hljs-string">"https://img.bricklink.com/ItemImage/SL/6086-1.png"</span>
+</code></pre>
+<p>In the HTML we could use normal interpolation in the <code>src</code> attribute:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"{{urlToImage}}"</span>/&gt;</span>
+</code></pre>
+</div></section><section class="slide" data-pos="5-6-11">
+<span class="pos">5-6-11</span>
+<div class="slidecontent"><p>However, if we do, we&#39;ll get an ugly 404 as <strong>the browser will try to download the url <code>{{urlToImage}}</code></strong>, since it parses the document before AngularJS has had the chance to transform that to the actual data.</p>
+<p>The solution is to use the <strong><code>ng-src</code> directive</strong> instead:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">ng-src</span>=<span class="hljs-string">"{{urlToImage}}"</span>/&gt;</span>
+</code></pre>
+</div></section><section class="slide num numF" data-pos="5-6-12">
+<span class="pos">5-6-12</span>
+<div class="slidecontent">
+<p>Speaking of that - we&#39;ll still see <strong>ugly <code>{{message}}</code> stuff flash by</strong> elsewhere in our template when the page first shows, before AngularJS has kicked off. The solution is the <strong><code>ng-cloak</code></strong> directive.</p>
+</div></section><section class="slide" data-pos="5-6-13">
+<span class="pos">5-6-13</span>
+<div class="slidecontent"><p>First, <strong>add this style</strong>:</p>
+<pre><code class="lang-css"><span class="hljs-selector-attr">[ng-cloak]</span> {
+  <span class="hljs-attribute">display</span>: none <span class="hljs-meta">!important</span>;
+}
+</code></pre>
+<p>As you can see, this style will <strong>hide all elements with an <code>ng-cloak</code> attribute</strong>.</p>
+</div></section><section class="slide" data-pos="5-6-14">
+<span class="pos">5-6-14</span>
+<div class="slidecontent"><p>Next, <strong>add that attribute to the root</strong> of your app:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">ng-app</span>=<span class="hljs-string">"myawesomeapp"</span> <span class="hljs-attr">ng-cloak</span>&gt;</span>
+</code></pre>
+<p>When AngularJS encounters that attribute it will <strong>remove it</strong>. The end result is that the <strong>app will become visible when AngularJS has parsed the template</strong>, which prevents the user from seeing the ghastly <code>{{ ... }}</code> stuff!</p>
+</div></section>
+</section>
+<!--ENDSECTION6-->
+<!--STARTSECTION7--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 7/11</div>
+      <h3>Exercise - AngularJS Controller</h3>
+      <p>Wrestling the beast</p>
+</p>
+    </div>
+  </section>
+  <section class="slide" data-pos="5-7-1">
+<span class="pos">5-7-1</span>
+<div class="slidecontent"><div class="goal"></div>
+
+<p>Goal: Simplify our code with AngularJS</p>
+</div></section><section class="slide" data-pos="5-7-2">
+<span class="pos">5-7-2</span>
+<div class="slidecontent"><p>Time to finally <strong>start using AngularJS for real</strong>!</p>
+</div></section><section class="slide list" data-pos="5-7-3">
+<span class="pos">5-7-3</span>
+<div class="slidecontent">
+<p>Here&#39;s the plan:</p>
+<ul>
+<li><span>a</span>Kick out jQuery</li>
+<li><span>b</span>Let AngularJS render the data</li>
+<li><span>c</span>Handle the star clicks with AngularJS</li>
+</ul>
+</div></section><section class="slide num numA" data-pos="5-7-4">
+<span class="pos">5-7-4</span>
+<div class="slidecontent">
+<p>First point of business - we <strong>won&#39;t need jQuery anymore</strong>, so...</p>
+<ul>
+<li><strong>remove all jQuery code</strong> from <code>code.js</code>. Yes, this means all of <code>renderMovie</code>, <code>changeStarRating</code> and the event handler setup!</li>
+<li><strong>remove all jQuery references</strong> elsewhere in the app (package.json, tsconfig.json, etc)</li>
+</ul>
+</div></section><section class="slide num numB" data-pos="5-7-5">
+<span class="pos">5-7-5</span>
+<div class="slidecontent">
+<p>Now we have to <strong>make AngularJS show the data</strong> instead!</p>
+<p>Begin with <strong>exposing the movie data in the controller</strong> by <strong>attaching it to <code>$scope</code></strong> (or <code>this</code> if you use that syntax).</p>
+<p>You could expose the 4 keys one by one, but it is probably easier to expose the entire object:</p>
+<pre><code class="lang-javascript">$scope.movie = movieData;
+</code></pre>
+</div></section><section class="slide" data-pos="5-7-6">
+<span class="pos">5-7-6</span>
+<div class="slidecontent"><p>Having done that, go back to the template and <strong>interpolate the data</strong> one piece at a time!</p>
+<ul>
+<li>The <strong>title</strong> and <strong>description</strong> will just be <strong>straightforward interpolation</strong>.</li>
+<li>The <strong>image url</strong> will require you to use the <strong><code>ng-src</code></strong> directive.</li>
+<li>The <strong>actor list</strong> will need the <strong><code>ng-repeat</code></strong> directive.</li>
+</ul>
+</div></section><section class="slide num numC" data-pos="5-7-7">
+<span class="pos">5-7-7</span>
+<div class="slidecontent">
+<p>Time to <strong>handle the rating selection</strong>! Because AngularJS templates are <strong>data-driven</strong>, we need to stop cheating and actually start <strong>track the current rating</strong>.</p>
+<pre><code class="lang-javascript">$scope.rating = <span class="hljs-number">0</span>;
+</code></pre>
+</div></section><section class="slide" data-pos="5-7-8">
+<span class="pos">5-7-8</span>
+<div class="slidecontent"><p>Now, with the <code>rating</code> in place, we can <strong>dynamically give <code>filled</code> classes to the stars</strong> depending on the rating value, using <code>ng-class</code>.</p>
+<p>For example, the <strong>third star</strong> could look like this:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">ng-class</span>=<span class="hljs-string">"{filled: rating&gt;=3}"</span>&gt;</span>&amp;#9733;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+</code></pre>
+</div></section><section class="slide" data-pos="5-7-9">
+<span class="pos">5-7-9</span>
+<div class="slidecontent"><p>Next we <strong>expose a handler</strong> in which we update that rating:</p>
+<pre><code class="lang-javascript">$scope.changeStarRating = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">newRating</span>)</span>{
+  $scope.rating = newRating;
+}
+</code></pre>
+</div></section><section class="slide question" data-pos="5-7-10">
+<span class="pos">5-7-10</span>
+<div class="slidecontent">
+<p>Wait - after we update the rating, don&#39;t we have to <strong>tell AngularJS to rerender</strong>?</p>
+</div></section><section class="slide answer" data-pos="5-7-11">
+<span class="pos">5-7-11</span>
+<div class="slidecontent">
+<p>That&#39;s the beauty of framework magic - <strong>no</strong>, we don&#39;t! AngularJS takes over the responsibility of &quot;triggering <code>renderMovie</code>&quot;, so to speak.</p>
+</div></section><section class="slide" data-pos="5-7-12">
+<span class="pos">5-7-12</span>
+<div class="slidecontent"><p>Anyhow - with the handler exposed, now <strong>use it in <code>ng-click</code> directives on the star elements</strong> in the HTML!</p>
+</div></section><section class="slide" data-pos="5-7-13">
+<span class="pos">5-7-13</span>
+<div class="slidecontent"><div class="checklist"></div>
+
+<p>You are done when...</p>
+<ul>
+<li>The app works exactly like before</li>
+<li>No <code>{{ .. }}</code> ever flash by and there are no silly image 404 errors</li>
+<li>jQuery has been thrown out</li>
+</ul>
+</div></section><section class="slide" data-pos="5-7-14">
+<span class="pos">5-7-14</span>
+<div class="slidecontent"><div class="solution"></div>
+
+<p>If you get stuck, see the <a href="https://github.com/krawaller/js-app-solutions/tree/master/angular_next">Angular Next</a> solution.</p>
+</div></section>
+</section>
+<!--ENDSECTION7-->
+<!--STARTSECTION8--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 8/11</div>
+      <h3>Controller variant</h3>
+      <p>Because there&#39;s many ways to skin a cat</p>
+</p>
+    </div>
+  </section>
+  <section class="slide" data-pos="5-8-1">
+<span class="pos">5-8-1</span>
+<div class="slidecontent"><div class="learn"></div>
+
+<p>Learn about the <strong>alternate controller syntax</strong></p>
+</div></section><section class="slide" data-pos="5-8-2">
+<span class="pos">5-8-2</span>
+<div class="slidecontent"><p>AngularJS has been around for a long time. So long, in fact, that it has <strong>the same problems as the web</strong>!</p>
+<ul>
+<li>we realise there are <strong>better ways</strong> to do certain things</li>
+<li>but we can&#39;t change because we want to be <strong>backwards compatible</strong></li>
+</ul>
+<p>Of course we can get around this through <strong>versioning</strong>, but AngularJS hasn&#39;t always done that to good effect.</p>
+</div></section><section class="slide" data-pos="5-8-3">
+<span class="pos">5-8-3</span>
+<div class="slidecontent"><p>One of the things they found a better way for is really fundamental, namely, <strong>interpolation</strong>. You&#39;ve seen how we <strong>attach values to <code>$scope</code></strong> in the controller:</p>
+<pre><code class="lang-javascript">app.controller(<span class="hljs-string">"myawesomecontroller"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope</span>)</span>{
+  $scope.greeting = <span class="hljs-string">"Hello world!"</span>;
+});
+</code></pre>
+<p>...which can then be <strong>accessed in the template</strong>:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-controller</span>=<span class="hljs-string">"myawesomecontroller"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{greeting}}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+</div></section><section class="slide" data-pos="5-8-4">
+<span class="pos">5-8-4</span>
+<div class="slidecontent"><p>There is a <strong>competing syntax</strong> for this - we can define our controller to <strong>work with <code>this</code></strong> instead of <strong><code>$scope</code></strong>:</p>
+<pre><code class="lang-javascript">app.controller(<span class="hljs-string">"myawesomecontroller"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">this</span>.message = <span class="hljs-string">"Hello world!"</span>;
+});
+</code></pre>
+<p>We no longer attach data to <code>$scope</code>, but to <code>this</code> instead.</p>
+</div></section><section class="slide" data-pos="5-8-5">
+<span class="pos">5-8-5</span>
+<div class="slidecontent"><p>For this alternate syntax we must connect the controller <strong>slightly differently</strong> by giving it an alias...</p>
+<pre><code>&lt;div <span class="hljs-attribute">ng-controller</span>=<span class="hljs-string">"myawesomecontroller as ctrl"</span>&gt;
+</code></pre><p>...and when we interpolate we must <strong>access the variables off of the alias</strong>:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{{ctrl.message}}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+</div></section><section class="slide question" data-pos="5-8-6">
+<span class="pos">5-8-6</span>
+<div class="slidecontent">
+<p>Fine, getting rid of <code>$scope</code> was nice, but isn&#39;t this new syntax <strong>fiddlier</strong> since we have to use an alias?</p>
+</div></section><section class="slide answer" data-pos="5-8-7">
+<span class="pos">5-8-7</span>
+<div class="slidecontent">
+<p>Yup, it is. But the advantage is that with <strong>nested scopes</strong> it becomes super clear where the variables come from:</p>
+<pre><code><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-controller</span>=<span class="hljs-string">"myawesomecontroller as ctrl"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span></span><span class="hljs-template-variable">{{ctrl.title}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-controller</span>=<span class="hljs-string">"innercontroller as ctrl2"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{ctrl2.content}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+</code></pre></div></section>
+</section>
+<!--ENDSECTION8-->
+<!--STARTSECTION9--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 9/11</div>
+      <h3>Exercise - Controller, take 2</h3>
+      <p>Wrestling the beast again</p>
+</p>
+    </div>
+  </section>
+  <section class="slide" data-pos="5-9-1">
+<span class="pos">5-9-1</span>
+<div class="slidecontent"><div class="goal"></div>
+
+<p>Goal: Try the other controller syntax</p>
+</div></section><section class="slide" data-pos="5-9-2">
+<span class="pos">5-9-2</span>
+<div class="slidecontent"><p>Not much to say beyond the goal text; your mission is to <strong>convert your app to the newer controller syntax</strong>!</p>
+</div></section><section class="slide" data-pos="5-9-3">
+<span class="pos">5-9-3</span>
+<div class="slidecontent"><div class="checklist"></div>
+
+<p>You are done when...</p>
+<ul>
+<li>There are no mentions of <code>$scope</code> in the code</li>
+<li>The app still works</li>
+</ul>
+</div></section><section class="slide" data-pos="5-9-4">
+<span class="pos">5-9-4</span>
+<div class="slidecontent"><div class="solution"></div>
+
+<p>If you get stuck, see the <a href="https://github.com/krawaller/js-app-solutions/tree/master/angular_next_alt">Angular Next Alt</a> solution.</p>
+</div></section>
+</section>
+<!--ENDSECTION9-->
+<!--STARTSECTION10--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 10/11</div>
+      <h3>What comes next?</h3>
+      <p>The rest of the story</p>
+</p>
+    </div>
+  </section>
+  <section class="slide" data-pos="5-10-1">
+<span class="pos">5-10-1</span>
+<div class="slidecontent"><div class="learn"></div>
+
+<p>Learn about <strong>what remains to learn in AngularJS</strong></p>
+</div></section><section class="slide" data-pos="5-10-2">
+<span class="pos">5-10-2</span>
+<div class="slidecontent"><p>You taken a good bite out of <strong>core AngularJS functionality</strong>, but there&#39;s so much more we haven&#39;t covered.</p>
+<p>Let&#39;s just walk through some things so you <strong>know what lies ahead</strong>!</p>
+</div></section><section class="slide" data-pos="5-10-3">
+<span class="pos">5-10-3</span>
+<div class="slidecontent"><p>You&#39;ll likely want to <strong>handle routing</strong> within your app, to allow the user to use bookmarks and back/forward buttons to navigate your app.</p>
+</div></section><section class="slide" data-pos="5-10-4">
+<span class="pos">5-10-4</span>
+<div class="slidecontent"><p>AngularJS allows you to package your controllers + related HTML as <strong>reusable components</strong>.</p>
+<p>We&#39;ll take a short peek at that shortly!</p>
+</div></section><section class="slide" data-pos="5-10-5">
+<span class="pos">5-10-5</span>
+<div class="slidecontent"><p>There&#39;s also a concept called <strong>services</strong> - this is an abstraction to house...</p>
+<ul>
+<li>app-wide logic</li>
+<li>app-wide state</li>
+<li>backend interaction</li>
+<li>inter-component communication</li>
+</ul>
+<p>In a small app you won&#39;t need them, but when things grow they are very useful.</p>
+</div></section>
+</section>
+<!--ENDSECTION10-->
+<!--STARTSECTION11--><section>
+  <section class="slide sectiontitle">
+    <div class="slidecontent">
+      <div class='sectioncount'>Section 11/11</div>
+      <h3>Exercise - Exploring AngularJS Component</h3>
+      <p>Putting code in a can</p>
+</p>
+    </div>
+  </section>
+  <section class="slide" data-pos="5-11-1">
+<span class="pos">5-11-1</span>
+<div class="slidecontent"><div class="goal"></div>
+
+<p>Goal: Understanding the power of components</p>
+</div></section><section class="slide" data-pos="5-11-2">
+<span class="pos">5-11-2</span>
+<div class="slidecontent"><p>As mentioned, AngularJS has a <strong>component syntax</strong> which lets us <strong>bundle controllers and their related HTML together</strong>.</p>
+<p>This is hugely useful, and at the core of more modern frameworks such as React (or the new Angular). So, let&#39;s <strong>explore it</strong>!</p>
+</div></section><section class="slide" data-pos="5-11-3">
+<span class="pos">5-11-3</span>
+<div class="slidecontent"><p>In the solution bundle for this exercise you&#39;ll find yet another version of the movie app where I&#39;ve <strong>componentalised the review</strong> part. This let&#39;s me do this:</p>
+<p><img src="resources/images/tworeviews.png" alt=""></p>
+</div></section><section class="slide" data-pos="5-11-4">
+<span class="pos">5-11-4</span>
+<div class="slidecontent"><p>Your mission is simply to <strong>explore my source code</strong> and see if you can figure out how it all fits together!</p>
+<p><a href="https://github.com/krawaller/js-app-solutions/tree/master/angular_component">Angular Component</a> solution.</p>
+<p>And, if you feel adventurous and have the time, <strong>try to employ it in your code</strong>!</p>
+</div></section><section class="slide" data-pos="5-11-5">
+<span class="pos">5-11-5</span>
+<div class="slidecontent"><div class="checklist"></div>
+
+<p>You are done when...</p>
+<ul>
+<li>You have explored the source code</li>
+<li>You have an idea of how components work</li>
+</ul>
+</div></section>
+</section>
+<!--ENDSECTION11--><!--ENDCHAPTERCONTENT-->
+        
+
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var basehref = window.location.href.replace(/chapter\d.*?$/,'')
+
+      document.addEventListener("keydown",function(e){
+        var code = e.which || e.keyCode;
+        if (code===13){
+          window.location.href = basehref+"index.html?from="+(5-1);
+        } else if (code >= 49 && code <= 11+48) {
+          window.location.hash = "#/" + (code-48+1+0);
+        }
+        if (5 < 6) {
+          if (code===99){ // the letter C for next Chapter
+            window.location.href = basehref+"chapter"+(5+1)+".html"
+          }
+        }
+      });
+    </script>
+    <script src="mc2/scripts/head.js" type="text/javascript"></script>
+    <script src="mc2/scripts/reveal.js" type="text/javascript"></script>
+    <script src="mc2/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    showNotes: false,
+    transition: 'slide',
+    dependencies: [
+      { src: 'mc2/scripts/plugin/notes/notes.js', async: true }
+    ]
+  })
+
+    window.onload = function(){
+
+      var links = document.querySelectorAll("a.link");
+      for(var i=0;i<links.length;i++){
+        var link = links[i];
+        link.innerHTML = link.innerHTML.replace(/ /g,'&nbsp;')
+      }
+      var posElem = document.getElementById('pos')
+      function updateReference(){
+        setTimeout(function(){
+          var currentpos = document.querySelector('section.present[data-pos]')
+          if (currentpos){
+            posElem.innerHTML = currentpos.getAttribute('data-pos')
+          } else {
+            posElem.innerHTML = ''
+          }
+          if (document.querySelector('.present.chaptertitle')){
+            document.body.classList.add('atchaptertitle');
+          } else {
+            document.body.classList.remove('atchaptertitle');
+          }
+        },10)
+      }
+
+      window.addEventListener("hashchange",updateReference);
+
+      updateReference();
+    };
+
+    </script>
+    <!--STARTCOURSESPECIFICSCRIPTS--><!--ENDCOURSESPECIFICSCRIPTS-->
+  </body>
+</html>

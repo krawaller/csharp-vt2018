@@ -1,0 +1,38 @@
+.goal:before {
+  display: inline-block;
+  font-size: 70px;
+  line-height: 70px;
+  color: white;
+  background-color: #5898AE;
+  border-radius: 100px;
+  width: 70px;
+  margin-right: 10px;
+  text-align: center;
+  content: "🎯"
+}
+
+.goal:before {
+  display: inline-block;
+  font-size: 70px;
+  line-height: 70px;
+  color: white;
+  background-color: #5898AE;
+  border-radius: 100px;
+  width: 70px;
+  margin-right: 10px;
+  text-align: center;
+  content: "🎯"
+}
+
+.checklist:before {
+  display: inline-block;
+  font-size: 70px;
+  line-height: 70px;
+  color: white;
+  background-color: #5898AE;
+  border-radius: 100px;
+  width: 70px;
+  margin-right: 10px;
+  text-align: center;
+  content: "🎯"
+}
